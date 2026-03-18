@@ -30,7 +30,7 @@ spell = SpellChecker(distance=1)             # kleinere Tippfehler mit distance=
 
 whitelist = {'comcast', 'xfinity', 'wow'}    # Wörter, die nicht verändert werden sollen
 
-custom_map = {                               # Kurzformen in das eigentliche Wort umwandeln
+custom_words = {                               # Kurzformen in das eigentliche Wort umwandeln
     'ive': 'i have',
     'dont': 'do not',
     'cant': 'cannot',
@@ -43,10 +43,10 @@ def korrigiere_text_safe(text):                     # definieren einer neuen Fun
     for w in words:                                 # Jedes Wort wird separat betrachtet
         if w in whitelist:                          # Wörter innerhalb der Whitelist werden nicht verändert
             corrected_words.append(w)  
-        elif w in custom_map:                       # Wörter, die in custom_map definiert wurden, werden entsprechend umgewandelt
-            corrected_words.append(custom_map[w])
+        elif w in custom_words:                     # Wörter, die in custom_words definiert wurden, werden entsprechend umgewandelt
+            corrected_words.append(custom_words[w])
         else:
-            corrected_words.append(spell.correction(w) or w)  # Wenn weder Whitelist noch custom_map: Wort wird korrigiert
+            corrected_words.append(spell.correction(w) or w)  # Wenn weder Whitelist noch custom_words: Wort wird korrigiert
     return ' '.join(corrected_words)                # Die Liste korrigierter Wörter wird wieder zusammengeführt
 
 df['text_korrigiert'] = df['text_bereinigt'].progress_apply(korrigiere_text_safe)  # Anwendung definierter Funktion auf vorherig erstellte Spalte inkl. Fortschrittsbalken
