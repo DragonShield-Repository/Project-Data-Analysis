@@ -1,0 +1,65 @@
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.decomposition import LatentDirichletAllocation
+import pandas as pd
+import spacy
+
+# 1. Vektorizierung mittels tfidf
+df = pd.read_csv("comcast_daten/comcast_tokens_final.csv") 
+
+df['text_vektorize'] = df['tokens_no_stopwords'].apply(lambda x: " ".join(eval(x))) 
+
+vectorizer = TfidfVectorizer() 
+tfidf_matrix = vectorizer.fit_transform(df['text_vektorize']) 
+
+# 2. Top 5 Wörter pro Kommentar extrahieren
+top_words_n = 5 
+feature_names = vectorizer.get_feature_names_out()  
+top_word_list= []  
+
+for i in range(tfidf_matrix.shape[0]): 
+    top_word_list_array = tfidf_matrix[i].toarray()[0]   
+    top_idx = top_word_list_array.argsort()[-top_words_n:][::-1]  
+    top_words = [f"{feature_names[idx]}:{top_word_list_array[idx]:.3f}" for idx in top_idx if top_word_list_array[idx] > 0]  
+    top_word_list.append(", ".join(top_words))  
+
+df['top_words_tfidf'] = top_word_list
+
+# 3. LDA auf tfifd-vektoren: Themen und zugehörige Top Wörter
+n_topics = 15  # Es sollen insgesamt 15 Themen gesucht werden
+lda_model = LatentDirichletAllocation(n_components=n_topics, random_state=42, learning_method='batch')  # Erstellen eines LDA Modells für die Datenanalyse
+lda_model.fit(tfidf_matrix)  # Trainieren des LDA Modells
+
+doc_topic_dist = lda_model.transform(tfidf_matrix)  # Berechnet für jeden Kommentar eine Themenverteilung (Wahrscheinlichkeiten)
+dominant_topics = doc_topic_dist.argmax(axis=1)  # Wählt das wahrscheinlichste Thema pro Kommentar
+df['dominant_topic'] = dominant_topics  # Speichert Ergebnisse in einer neuen Spalte
+
+def get_lda_topics(model, feature_names, n_top_words=10):  # Definition neuer Funktion, extraktion der Top 10 Wörter pro Thema
+    topics = []  # Neues Array für die Themen
+    for topic_idx, topic in enumerate(model.components_):  # Für jedes Thema Extraktion der Wörter mit höchstem Gewicht
+        top_indices = topic.argsort()[-n_top_words:][::-1]  # Wörter mit höchster Gewichtung auswählen
+        top_words = [feature_names[i] for i in top_indices]  # Wichtigsten Wörter eines Themas nach Wichtigkeit sortiert
+        topics.append(top_words)  # Liste der Themen mit den Top Wörtern
+    return topics
+
+lda_topics = get_lda_topics(lda_model, feature_names)  # Extraktion der Top Wörter für jedes Thema
+
+print("LDA Themen und ihre Top Wörter:")  # Ausgabe der Themen und ihren Top Wörtern
+for idx in range(n_topics):  # Geht jedes Thema einzeln durch
+    print(f"Topic {idx+1}: {', '.join(lda_topics[idx])}")  # Ausgabe der Liste der wichtigsten Wörter zu einem Thema
+
+# 4. Ausgabe von Themen ohne Top-Wörter
+nlp = spacy.load("en_core_web_sm")  # Spacy Modell kann Wörter analysieren
+all_keywords = []  # Neues Array für die Themenwörter
+
+for word in feature_names:  # Schleife über alle Wörter in Matrix
+    doc = nlp(word)  # Analysiert Wort 
+    if doc[0].pos_ in ['NOUN', 'PROPN']:  # Es sollen nur Nomen/ Eigennamen behalten werden
+        word_index = vectorizer.vocabulary_[word]  # holt Index des Wortes der tfidf Matrix
+        score = tfidf_matrix[:, word_index].sum()  # Summiert die Werte eines Wortes/ tfidf Gewichtung eines Wortes
+        all_keywords.append((word, score))  # Speichern der Ergebnisse in der Liste
+
+top_keywords_filtered = sorted(all_keywords, key=lambda x: x[1], reverse=True)[:15]  # Sortiert die Themen nach tfidf Summe
+
+print("Wichtigste Themen:")  # Ausgabe der Themen
+for word, score in top_keywords_filtered:  # Durchläuft alle Top Wörter
+    print(f"{word}: {score:.3f}")  # Gibt das Wort mit seinem Wert aus
