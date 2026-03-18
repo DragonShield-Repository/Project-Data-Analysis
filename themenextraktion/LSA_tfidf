@@ -1,0 +1,57 @@
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.decomposition import TruncatedSVD
+import pandas as pd
+
+# 1. Vektorizierung mittels tfidf
+df = pd.read_csv("comcast_daten/comcast_tokens_final.csv") 
+
+df['text_vektorize'] = df['tokens_no_stopwords'].apply(lambda x: " ".join(eval(x))) 
+
+vectorizer = TfidfVectorizer() 
+tfidf_matrix = vectorizer.fit_transform(df['text_vektorize'])  
+
+print(tfidf_matrix.shape)  
+
+# 2. Top 5 Wörter pro Kommentar extrahieren
+top_words_n = 5  
+feature_names = vectorizer.get_feature_names_out() 
+top_word_list= []  
+
+for i in range(tfidf_matrix.shape[0]):  
+    top_word_list_array = tfidf_matrix[i].toarray()[0]   
+    top_idx = top_word_list_array.argsort()[-top_words_n:][::-1]  
+    top_words = [f"{feature_names[idx]}:{top_word_list_array[idx]:.3f}" for idx in top_idx if top_word_list_array[idx] > 0]  
+    top_word_list.append(", ".join(top_words)) 
+
+df_top = pd.DataFrame({'top_tfidf_words': top_word_list})  
+
+# 3. LSA auf tfidf Vektoren: Themen und ihre zugehörigen Top Wörter
+n_components = 15  # Es sollen insgesamt 15 Themen gesucht werden
+lsa_model = TruncatedSVD(n_components=n_components, random_state=42)  #  Erstellen eines LSA Modells für die Datenanalyse
+lsa_matrix = lsa_model.fit_transform(tfidf_matrix)  # Trainieren des LSA Modells
+
+def get_lsa_topics(model, feature_names, n_top_words=10):  # Definition neuer Funktion, extraktion der Top 10 Wörter pro Thema
+    topics = []  # Neues Array für die Themen
+    for i, comp in enumerate(model.components_):  # Für jedes Thema Extraktion der Wörter mit höchstem Gewicht
+        top_idx = comp.argsort()[-n_top_words:][::-1]  # Wörter mit höchster Gewichtung auswählen
+        top_words = [feature_names[idx] for idx in top_idx]  # Wichtigsten Wörter eines Themas nach Wichtigkeit sortiert
+        topics.append(top_words)  # Liste der Themen mit den Top Wörtern
+    return topics
+
+lsa_topics = get_lsa_topics(lsa_model, feature_names, n_top_words=10)  # Extraktion der Top Wörter für jedes Thema
+
+print("LSA Themen und ihre Top Wörter:")  # Ausgabe der Themen und ihren Top Wörtern
+for i, topic in enumerate(lsa_topics):   # Geht jedes Thema einzeln durch
+    print(f"Topic {i+1}: {', '.join(topic)}")  # Ausgabe der Liste der wichtigsten Wörter zu einem Thema
+
+
+# 4. Ausgabe von Themen ohne Top-Wörter
+top_words = []  # Neues Array für die Themen
+
+for comp in lsa_model.components_:  # geht jedes Thema einzeln durch
+    top_idx = comp.argmax()  # Index des Wortes mit höchstem Gewicht
+    top_words.append(feature_names[top_idx])  # Speichern der Ergebnisse in der Liste
+
+print("Wichtigste Themen:")  # Ausgabe der Themen
+for i, word in enumerate(top_words):  # Durchläuft alle Top Wörter
+    print(f"Topic {i+1}: {word}")  # Gibt das Wort aus
