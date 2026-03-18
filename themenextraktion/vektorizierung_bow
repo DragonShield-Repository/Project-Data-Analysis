@@ -1,0 +1,27 @@
+import pandas as pd
+from sklearn.feature_extraction.text import CountVectorizer
+
+# 1. Vektorizierung mittels BoW
+df = pd.read_csv("comcast_daten/comcast_tokens_final.csv") # vorverarbeitete csv einlesen
+
+df['text_vektorize'] = df['tokens_no_stopwords'].apply(lambda x: " ".join(eval(x))) # Umwandlung der Tokens in String
+
+vectorizer = CountVectorizer()  # Erstellung eines vectorizers
+bow_matrix = vectorizer.fit_transform(df['text_vektorize'])  # Erstellen einer bow matrix
+
+print(f"BoW-Matrix Form: {bow_matrix.shape}")  # Gibt die Dimension der Matrix aus
+
+# 2. Top 5 Wörter pro Kommentar extrahieren
+top_words_n = 5  # Anzahl der wichtigsten Wörter pro Kommentar
+feature_names = vectorizer.get_feature_names_out()  # Liste der Wörter 
+top_word_list= []  # neue Liste für die Top Wörter
+
+for i in range(bow_matrix.shape[0]):  # Schleife über alle Dokumente
+    top_word_list_array = bow_matrix[i].toarray()[0]   # Umwandlung in ein Array
+    top_idx = top_word_list_array.argsort()[-top_words_n:][::-1]  # Sortirung nach aufsteigendem Wert und Auswahl der größten tfidf Werte
+    top_words = [f"{feature_names[idx]}:{top_word_list_array[idx]:.3f}" for idx in top_idx if top_word_list_array[idx] > 0]  # Erstellt eine Liste mit Strings Muster: "Wort:TF-IDF (3 Nachkommastellen)"
+    top_word_list.append(", ".join(top_words))  # Wörter der Liste hinzufügen
+
+df_top = pd.DataFrame({'top_bow_words': top_word_list})  # Erstellen eines DataFrames mit einer Spalte und den Wörtern
+
+df_top.to_csv("comcast_daten/bow_Werte.csv", index=False)  # Speichern der Ergebnisse in einer neuen csv
