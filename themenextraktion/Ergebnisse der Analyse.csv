@@ -1,0 +1,42 @@
+﻿;Thema;zugehörige Wörter;Themen: Score
+LDA;Topic 1;exception, finance, burial, tucson, tollfree, gregory, columbia, flawlessly, mother, popup;"service: 402.932
+
+
+
+
+
+
+
+
+"
+;Topic 2;soapnet, inventory, irresponsible, kb, cellular, stomach, woodbine, aft, deceptive, western;comcast: 359.715
+;Topic 3;unused, manila, squeeze, sidewalk, hight, buzz, scheme, paidoff, cal, pd;bill: 231.280
+;Topic 4;promo, underground, hazard, penalize, freak, delivery, dispatcher, horrendous, fence, expose;time: 202.121
+;Topic 5;refurbish, empty, jacksonville, existent, spare, directtv, plead, condominium, upwell, jerk;customer: 201.024
+;Topic 6;mother, garbage, foreign, elsewhere, outsource, na, waiting, overseas, build, particular;internet: 198.738
+;Topic 7;mother, indoor, vain, sufficient, disturbing, phil, chicago, elementary, trail, tear;month: 197.108
+;Topic 8;audio, playback, international, mother, denver, domestic, puppy, shelbyville, golf, understaffed;cable: 186.405
+;Topic 9;service, comcast, call, get, tell, bill, would, time, customer, say;phone: 179.042
+;Topic 10;scramble, focus, strategy, making, eft, spell, townhouse, pin, monkey, percent;day: 156.969
+;Topic 11;heat, inactive, nose, build, bizarre, livelihood, theme, urgency, badge, rafael;problem: 146.562
+;Topic 12;east, coast, oversee, de, clicker, geo, debra, teacher, significantly, deck;box: 136.915
+;Topic 13;spam, netbook, worthless, reversal, sky, filter, sensor, cat, comcrap, calculate;year: 125.782
+;Topic 14;mix, plenty, franchise, porn, superior, caller, timer, onhold, unsuccessfully, roach;company: 124.303
+;Topic 15;percent, overseas, sensitive, frontier, travis, outdate, mistakenly, anime, operation, mommy;hour: 117.078
+;;;
+;Thema;zugehörige Wörter;Wichtigste Themen
+LSA;Topic 1;service, call, comcast, get, tell, bill, would, say, time, customer;service
+;Topic 2;bill, month, charge, pay, fee, year, payment, contract, price, account;bill
+;Topic 3;internet, speed, service, cable, map, channel, problem, modem, connection, work;internet
+;Topic 4;box, cable, channel, say, charge, come, teach, tell, bill, month;box
+;Topic 5;box, service, comcast, cable, equipment, account, return, technician, problem, charge;box
+;Topic 6;modem, speed, internet, bill, map, charge, credit, problem, teach, connection;modem
+;Topic 7;bill, service, appointment, month, come, pm, cable, technician, show, schedule;bill
+;Topic 8;modem, charge, fee, equipment, service, contract, would, tell, installation, technician;modem
+;Topic 9;modem, charge, bad, company, time, phone, problem, every, equipment, get;modem
+;Topic 10;box, speed, map, service, charge, customer, get, bad, back, say;box
+;Topic 11;channel, call, phone, bill, problem, box, issue, number, package, hour;channel
+;Topic 12;charge, channel, technician, payment, account, customer, fee, bad, problem, issue;charge
+;Topic 13;modem, channel, get, pay, service, bill, cable, payment, appointment, watch;modem
+;Topic 14;equipment, return, channel, time, call, collection, comcast, month, company, refund;equipment
+;Topic 15;service, problem, tell, say, cable, call, would, internet, fix, pay;service
