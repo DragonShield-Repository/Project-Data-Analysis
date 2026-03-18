@@ -7,6 +7,6 @@ Anschließend wurden de Ergebnisse der Vektorisierung von tfidf für die Themene
      - Ergebnis: bow_Werte
 3. Vektorisierung tfidf
      - Ergebnis: tfidf_Werte
-5. LDA_tfidf
-6. LSA_tfidf
+5. LDA_tfidf: Analyse der tfidf Vektoren mittels LDA
+6. LSA_tfidf: Analyse der tfidf Vektoren mittels LSA
 7. Ergebnisse der Analyse (Schritt 5 und 6)
