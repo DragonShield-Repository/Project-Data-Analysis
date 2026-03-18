@@ -34,7 +34,7 @@ spell = SpellChecker(distance=1)
 
 whitelist = {'comcast', 'xfinity', 'wow'}
 
-custom_map = {
+custom_words = {
     'ive': 'i have',
     'dont': 'do not',
     'cant': 'cannot',
@@ -47,8 +47,8 @@ def korrigiere_text(text):
     for w in words:
         if w in whitelist:
             corrected_words.append(w)  
-        elif w in custom_map:  
-            corrected_words.append(custom_map[w])
+        elif w in custom_words:  
+            corrected_words.append(custom_words[w])
         else:
             corrected_words.append(spell.correction(w) or w)
     return ' '.join(corrected_words)
