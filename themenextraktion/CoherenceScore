@@ -1,0 +1,52 @@
+import pandas as pd
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.decomposition import LatentDirichletAllocation
+from gensim.models import CoherenceModel
+from gensim.corpora import Dictionary
+
+
+def get_topics(model, feature_names, n_top_words=10): #wichtigsten zehn Wörter pro Thema erhalten
+    topics = [] # neue Liste für die Wörter
+    for topic in model.components_: # geht die Themen einzeln durch
+        top_idx = topic.argsort()[-n_top_words:][::-1] # Wörter werden nach Wichtigkeit sortiert und nimmt die Top n
+        topics.append([feature_names[i] for i in top_idx]) # Speichert wichtigste Wörter eines Themas als lesbare Wortliste
+    return topics # gibt Themen zurück
+
+
+if __name__ == "__main__": # führt Code aus wenn Skript gestartet wird
+    df = pd.read_csv("comcast_daten/comcast_tokens_final.csv") # Daten laden
+    texts = df['tokens_no_stopwords'].apply(eval).tolist() # Umwandlung String in Liste
+
+    dictionary = Dictionary(texts) # erstellt Wörterbuch für gensim
+    vectorizer = CountVectorizer(min_df=5, max_df=0.8) # erstellt CountVEctorizer für spätere Erzeugung einer BoW Matrix
+
+    doc_term_matrix = vectorizer.fit_transform( # wandelt Token-Liste in Strings um und erstellt Dokument-Wort-Matrix
+        [" ".join(text) for text in texts]
+    )
+
+    feature_names = vectorizer.get_feature_names_out() # holt alle Wörter aus dem Vokabular des Vectorizers
+    topic_range = [5, 10, 15, 20, 25] # Anzahl Themen die getestet werden
+    results = [] # neue Liste für die Scores
+
+    for n_topics in topic_range: # Schleife um jede Themenanzahl zu testen
+        lda = LatentDirichletAllocation( # erstellt LDA-Modell mit aktueller Themenanzahl
+        n_components=n_topics,
+        random_state=42
+        )
+
+        lda.fit(doc_term_matrix) # trainieren des LDA-Modells
+
+        topics = get_topics(lda, feature_names) # extrahiert Top Wörter pro Thema
+
+        coherence_model = CoherenceModel( # Erstellung eines Coherence-Modells zur Bewertung der Themenqualität
+            topics=topics,
+            texts=texts,
+            dictionary=dictionary,
+            coherence='c_v'
+        )
+
+        score = coherence_model.get_coherence() # berechnet Coherence Score
+
+        results.append((n_topics, score)) # speichert Ergebnis in Liste
+
+        print(f"{n_topics} Topics -> Coherence: {score:.4f}") # gibt Ergebnis im Terminal aus 
