@@ -10,3 +10,5 @@ Anschließend wurden de Ergebnisse der Vektorisierung von tfidf für die Themene
 5. LDA_tfidf: Analyse der tfidf Vektoren mittels LDA
 6. LSA_tfidf: Analyse der tfidf Vektoren mittels LSA
 7. Ergebnisse der Analyse (Schritt 5 und 6)
+
+8. Es wurde "CoherenceScore" hinzugefügt, welches die Themenanzahl vorgibt
