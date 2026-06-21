@@ -25,7 +25,7 @@ for i in range(tfidf_matrix.shape[0]):
 df['top_words_tfidf'] = top_word_list
 
 # 3. LDA auf tfifd-vektoren: Themen und zugehörige Top Wörter
-n_topics = 15  # Es sollen insgesamt 15 Themen gesucht werden
+n_topics = 20  # Es sollen insgesamt 20 Themen gesucht werden
 lda_model = LatentDirichletAllocation(n_components=n_topics, random_state=42, learning_method='batch')  # Erstellen eines LDA Modells für die Datenanalyse
 lda_model.fit(tfidf_matrix)  # Trainieren des LDA Modells
 
