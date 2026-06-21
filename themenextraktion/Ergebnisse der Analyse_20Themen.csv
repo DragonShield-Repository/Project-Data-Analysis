@@ -1,0 +1,43 @@
+﻿;Thema;zugehörige Wörter;Themen: Score
+LDA;Topic 1;cutoff, msnbc, aft, hound, curb, tiny, boycott, distance, saveology, quotation;service: 402.932
+;Topic 2;rarely, ass, runner, nsf, application, pittsburgh, leasing, reserve, foolish, bellingham;comcast: 359.715
+;Topic 3;tvinternetphone, sensor, outlook, ecobille, moses, delphi, gold, shocked, expiration, microsoft;bill: 231.280
+;Topic 4;alarm, arrangement, broken, pretend, la, branch, hat, longtime, dispatcher, unhappy;time: 202.121
+;Topic 5;piss, throttle, document, limitation, inconvenient, monitoring, flag, disgusting, frontier, surcharge;customer: 201.024
+;Topic 6;book, skip, intentionally, monopolize, industry, hmm, click, mailbox, disregard, netbook;internet: 198.738
+;Topic 7;unhelpful, honesty, recycle, disorganized, reconsider, nose, repaint, exclusively, loop, dry;month: 197.108
+;Topic 8;soapnet, international, thanksgiving, unhappy, spike, interaction, content, electricity, sake, image;cable: 186.405
+;Topic 9;service, comcast, call, get, tell, bill, would, time, customer, say;phone: 179.042
+;Topic 10;regularly, redirect, porn, washington, skype, successfully, cox, identity, format, denver;day: 156.969
+;Topic 11;liberty, mutual, sony, ewtn, livelihood, urgency, enhancement, mistakenly, invite, cartersville;problem: 146.562
+;Topic 12;spam, improvement, connector, infomercial, katelyn, elect, geo, caption, teacher, stupidity;box: 136.915
+;Topic 13;sky, finalize, browser, steady, disturb, overdraw, content, brian, cow, paidoff;year: 125.782
+;Topic 14;serviceable, grass, phil, adequately, receptionist, mechanism, overdraft, roach, throughput, townhome;company: 124.303
+;Topic 15;grace, twoyear, pas, docsis, baltimore, occurrence, deceased, offering, deadline, land;hour: 117.078
+;Topic 16;overage, certify, twenty, everybody, bucket, region, courteous, closed, terminal, ca;technician: 105.431
+;Topic 17;round, blah, safety, thief, investigation, delinquent, generate, overpay, thus, equal;week: 100.184
+;Topic 18;brother, rule, jose, vote, organize, wallet, arc, lucky, ugly, baseball;modem: 98.570
+;Topic 19;pixelate, crooked, voyage, hispeed, adequate, comcrap, fox, timely, scratch, hurricane;rep: 97.183
+;Topic 20;prepaid, bye, preferred, wan, renew, inventory, buffer, land, screenshot, episode;issue: 96.950
+;;;
+;Thema;zugehörige Wörter;Wichtigste Themen
+LSA;Topic 1;service, call, comcast, get, tell, bill, would, say, time, customer;service
+;Topic 2;bill, month, charge, pay, fee, year, payment, contract, price, account;bill
+;Topic 3;internet, speed, service, cable, map, channel, problem, modem, connection, work;internet
+;Topic 4;box, cable, channel, say, charge, come, teach, tell, bill, month;box
+;Topic 5;box, service, comcast, cable, equipment, account, return, technician, problem, charge;box
+;Topic 6;modem, speed, internet, bill, map, charge, credit, problem, teach, connection;modem
+;Topic 7;bill, service, appointment, month, come, pm, technician, show, cable, schedule;bill
+;Topic 8;modem, charge, fee, service, equipment, contract, would, tell, installation, cancel;modem
+;Topic 9;modem, charge, bad, company, phone, time, get, every, problem, month;modem
+;Topic 10;box, speed, map, service, charge, customer, get, call, bad, back;box
+;Topic 11;channel, problem, call, issue, phone, bill, package, month, number, supervisor;channel
+;Topic 12;charge, technician, problem, credit, payment, customer, fee, channel, issue, account;charge
+;Topic 13;modem, channel, pay, service, get, watch, payment, back, pm, call;modem
+;Topic 14;equipment, return, time, call, collection, receive, credit, comcast, owe, channel;equipment
+;Topic 15;hour, appointment, time, phone, show, charge, channel, equipment, account, installation;hour
+;Topic 16;bill, teach, customer, new, comcast, email, appointment, speed, order, address;bill
+;Topic 17;channel, equipment, get, charge, service, say, problem, teach, fix, day;channel
+;Topic 18;charge, cable, comcast, equipment, number, phone, technician, house, someone, installation;charge
+;Topic 19;technician, new, account, move, fix, address, come, year, issue, house;technician
+;Topic 20;email, tell, credit, order, internet, receive, would, day, installation, card;email
