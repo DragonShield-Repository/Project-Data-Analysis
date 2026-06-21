@@ -12,3 +12,4 @@ Anschließend wurden de Ergebnisse der Vektorisierung von tfidf für die Themene
 7. Ergebnisse der Analyse (Schritt 5 und 6)
 
 8. Es wurde "CoherenceScore" hinzugefügt, welches die Themenanzahl vorgibt
+9. Ergebnisse der Analyse mit 20 Themen (s. Schritt 8)
