@@ -58,7 +58,7 @@ for word in feature_names:  # Schleife über alle Wörter in Matrix
         score = tfidf_matrix[:, word_index].sum()  # Summiert die Werte eines Wortes/ tfidf Gewichtung eines Wortes
         all_keywords.append((word, score))  # Speichern der Ergebnisse in der Liste
 
-top_keywords_filtered = sorted(all_keywords, key=lambda x: x[1], reverse=True)[:15]  # Sortiert die Themen nach tfidf Summe
+top_keywords_filtered = sorted(all_keywords, key=lambda x: x[1], reverse=True)[:20]  # Sortiert die Themen nach tfidf Summe
 
 print("Wichtigste Themen:")  # Ausgabe der Themen
 for word, score in top_keywords_filtered:  # Durchläuft alle Top Wörter
